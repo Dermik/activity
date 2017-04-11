@@ -1,0 +1,31 @@
+<h1>User form</h1>
+<form action="/user/create" method="POST" class="form-signin container form-horisontal">
+	<h2 class="form-signin-heading">Create an account</h2>
+
+	<% if(flash && flash.err) {%>
+		<p class="alert alert-danger"><%- flash.err %></p>
+	<% }%>
+	<div class="form-group">
+		<label>your name</label>
+		<input type="text" class="form-control" placeholder="your name" name="name">
+	</div>
+	<div class="form-group">
+		<label>your title</label>
+		<input type="text" class="form-control" placeholder="your title" name="title">
+	</div>
+	<div class="form-group">
+		<label>your email</label>
+		<input type="text" class="form-control" placeholder="your email" name="email">
+	</div>
+	<div class="form-group">
+		<label>password</label>
+		<input type="password" class="form-control" placeholder="password" name="password">
+	</div>
+	<div class="form-group">
+		<label>password confirmation</label>
+		<input type="password" class="form-control" placeholder="password confirmation" name="confirmation">
+	</div>
+	<br />
+	<input type="submit" class="btn btn-lg btn-primary" value="CREATE ACC">
+	<input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+</form>
