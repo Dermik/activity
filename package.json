@@ -37,6 +37,14 @@
   "author": "anonymous node/sails user",
   "license": "",
   "devDependencies": {
+    "eslint": "^3.19.0",
     "eslint-config-rallycoding": "^3.2.0"
+  },
+  "consumedServices": {
+    "linter-indie": {
+      "versions": {
+        "2.0.0": "consumeIndie"
+      }
+    }
   }
 }

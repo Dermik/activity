@@ -1,5 +1,12 @@
 <div class="container">
   <h1><%= user.name %></h1>
+  <% if (user.admin) { %>
+    <!-- <td><img src="/images/admin.png"></td> -->
+    <td><span class="glyphicon glyphicon-king" aria-hidden="true"></span></td>
+  <% } else {%>
+    <td><span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
+    <!-- <td><img src="/images/pawn.png"></td> -->
+  <% } %>
   <h3><%= user.title %></h3>
   <hr>
   <h3><%= user.email %></h3>

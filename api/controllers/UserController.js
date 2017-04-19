@@ -25,7 +25,8 @@ module.exports = {
 
 				return res.redirect('/user/new');
 			}
-
+			req.session.authenticated = true;
+			req.session.User = user;
 			res.redirect('user/show/' + user.id);
 			// req.session.flash = {};
 		})
@@ -45,6 +46,9 @@ module.exports = {
 		.catch(err=>next(err))
 	},
 	index: function (req, res, next) {
+		if(req.session){
+			console.log(req.session)
+		}
 		User.find()
 		.then(users=>{
 			res.view({ users: users })
