@@ -1,4 +1,16 @@
-# {
-#   "extends":"rallycoding",
-#   "globals":["User"]
-# }
+{
+  "extends":"rallycoding",
+  "globals":["User"],
+  "rules": {
+    "no-param-reassign": [
+      "error",
+      { "props": false }
+    ],
+    "no-undef": "off",
+    "prefer-template":"off",
+    "indent": ["error", "tab"]
+    # "no-undef": ["error", { "typeof": false }]
+  },
+
+
+}

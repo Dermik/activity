@@ -5,6 +5,7 @@
  * it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
+const bcrypt = require('bcrypt');
 
 module.exports = {
   schema: true,
@@ -29,24 +30,29 @@ module.exports = {
     encryptedPassword: {
       type: 'string'
     },
-    toJson: function() {
-      var obj = this.toObject();
+    online: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    toJson() {
+      const obj = this.toObject();
       delete obj.password;
       delete obj.confirmation;
       delete obj.encryptedPassword;
+      /*eslint-disable no-underscore-dangle*/
       delete obj._csrf;
+      /*eslint-enable*/
       return obj;
     }
-  },//end of attributes
+  }, //end of attributes
 
-  beforeCreate: function(values, next){
-
-    if (!values.password || values.password != values.confirmation) {
-      return next({err: ["Password doesn't match"]});
+  beforeCreate(values, next) {
+    if (!values.password || values.password !== values.confirmation) {
+      return next({ err: ["Password doesn't match"] });
     }
 
-    require('bcrypt').hash(values.password, 10, function(err, encryptedPassword) {
-      if(err) return next(err);
+    bcrypt.hash(values.password, 10, (err, encryptedPassword) => {
+      if (err) return next(err);
       values.encryptedPassword = encryptedPassword;
       // values.online = true;
       next();

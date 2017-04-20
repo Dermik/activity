@@ -4,17 +4,23 @@
  * @description :: Server-side logic for managing sessions
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-const bcrypt=require('bcrypt')
+const bcrypt = require('bcrypt');
+
 module.exports = {
-	new: function(req,res){
+	new(req, res) {
 		res.view('session/new');
 	},
-	create: function(req,res) {
-		if (!req.param('email') || !req.param('password')){
-		var usernamePasswordRequiredError = [{name: "usernamePasswordRequired", message: "You need both"}];
+	create(req, res) {
+		if (!req.param('email') || !req.param('password')) {
+		const usernamePasswordRequiredError = [
+			{
+				name: 'usernamePasswordRequired',
+				message: 'You need both'
+			}
+		];
 
-		req.session.flash={
-			err:usernamePasswordRequiredError
+		req.session.flash = {
+			err: usernamePasswordRequiredError
 		}
 		res.redirect('session/new');
 		return;
