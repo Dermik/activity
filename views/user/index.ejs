@@ -12,6 +12,13 @@
 		</tr>
 		<% _.each(users, function(user) {%>
 		<tr data-id="<%= user.id %>" data-model="user">
+			<% if (user.online) { %>
+				<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+
+			<% } else { %>
+				<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+
+			<% } %>
 			<td><%= user.id %></td>
 			<td><%= user.name %></td>
 			<td><%= user.title %></td>
@@ -34,6 +41,6 @@
 
 			<!-- <td><a href="user/destroy/<%= user.id %>" class="btn-sm btn-danger">Delete</td> -->
 		</tr>
-		<% }) %>	
+		<% }) %>
 	</table>
 </div>

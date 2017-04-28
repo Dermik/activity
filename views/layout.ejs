@@ -135,14 +135,43 @@
           + Use a different preprocessor, like TypeScript
 
     -->
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script> -->
 
+<script type="text/javascript" src="/js/dependencies/sails.io.js"></script>
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/js/customValidation.js"></script>
+    <script src="/js/app.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/npm.js"></script>
     <!--SCRIPTS END-->
+		<script>
+
+		(function(){
+			var socket = io.connect();
+			if( typeof console !=='undefined'){
+				console.log('Connecting to sails...')
+			}
+			io.socket.on('connect',()=>{
+				console.log('conected');
+				io.socket.on('user',(mess)=>{
+					console.log('new message is :',mess);
+				})
+				io.socket.get('/user/subscribe', function (resData) {
+			resData; // => {id:9, name: 'Timmy Mendez'}
+		});
+				// socket.get('/user/subscribe');
+				// socket.emit('/user/subscribe');
+				// $.ajax({
+				//   url: "/user/subscribe",
+				//   success: function(data){
+				//     alert( "Прибыли данные: " + data );
+				//   }
+				// });
+			})
+		})();
+		</script>
   </body>
 </html>

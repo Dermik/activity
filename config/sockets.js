@@ -38,7 +38,7 @@ module.exports.sockets = {
   * via port 6379                                                            *
   *                                                                          *
   ***************************************************************************/
-  // adapter: 'memory',
+  adapter: 'memory',
 
   //
   // -OR-
@@ -106,12 +106,13 @@ module.exports.sockets = {
   * app's security.                                                          *
   *                                                                          *
   ***************************************************************************/
-  // beforeConnect: function(handshake, cb) {
-  //   // `true` allows the connection
-  //   return cb(null, true);
-  //
-  //   // (`false` would reject the connection)
-  // },
+	beforeConnect(handshake, cb) {
+    // `true` allows the connection
+		// console.log(handshake)
+		return cb(null, true);
+
+    // (`false` would reject the connection)
+	},
 
 
   /***************************************************************************

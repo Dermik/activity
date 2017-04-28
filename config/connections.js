@@ -28,10 +28,10 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-mongo'
-  },
-
+	mongo: {
+		adapter: 'sails-mongo',
+	},
+// adapter: 'mongo'
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *

@@ -31,6 +31,14 @@ module.exports = {
 			req.session.User = user;
 
 			user.online = true;
+			user.save((error) => {
+				if (error) return next(err);
+
+				if (req.session.User.admin) {
+					req.redirect('/user');
+					return;
+				}
+			});
 			res.redirect('user/show/' + user.id);
 			// req.session.flash = {};
 		});
@@ -69,8 +77,19 @@ module.exports = {
 		.catch(e => next(e));
 	},
 	update: (req, res) => {
-		User.update(req.params.id, req.allParams())
-		.then(() => res.redirect('/user/show/' + req.params.id))
+		const userObj = {
+			name: req.param('name'),
+			title: req.param('title'),
+			email: req.param('email')
+		};
+		if (req.session.User.admin) {
+			userObj.admin = req.param('admin');
+		}
+		User.update(req.params.id, userObj) //req.allParams()
+		.then(() => {
+			User.publishCreate(user);
+			res.redirect('/user/show/' + req.params.id);
+		})
 		.catch(e => {
 			console.log(e);
 			res.redirect('/user/edit/' + req.params.id);
@@ -82,8 +101,18 @@ module.exports = {
 			if (!user) return next('User doesn\'t exists.');
 			User.destroy(req.params.id, (error) => {
 				if (error) return next(err);
+				User.publishDestroy(user.id);
+				res.redirect('/user');
 			});
-			res.redirect('/user');
+		});
+	},
+	subscribe(req, res) {
+		console.log('some asshole subbed');
+		User.find((err, users) => {
+			User.subscribe(req.socket);
+			User.subscribe(req.socket, users);
+			return res.send(200);
+			// return null;
 		});
 	}
 };
